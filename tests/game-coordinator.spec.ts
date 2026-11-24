@@ -7,7 +7,12 @@ import type { Deck } from "../types";
    - When both get blackjack, the dealer wins after the first 2 card draws ✅
    - When the player gets blackjack, the player wins if the dealer does not have blackjack after the first 2 card draws ✅
    - Edge case: what happens if any have blackjack after the first 2 card draws but either one has a higher value than 21? ✅
-   - If neither have blackjack after the first 2 card draws, the game continues
+   - If neither have blackjack after the first 2 card draws, the game continues ✅
+   - When the player gets 17 or higher stops and turns to dealer's.
+   - When the player is already at 17 or higher stops and turns to dealer's.
+   - When the player gets above 21 the dealer wins.
+   - When the dealer goes higher than your value stops and turns to player's.
+   - When the dealer gets over 21 the player wins.
 */
 
 describe("GameCoordinator", () => {
@@ -89,6 +94,44 @@ describe("GameCoordinator", () => {
 
       // Then
       expect(result).toBe("continue");
+    });
+  });
+
+  describe("restOfGame", () => {
+    it("stops the turn and passes to dealer's if the player gets 17 or higher", () => {
+      // Given
+      const deck: Deck = [
+        { suit: "HEARTS", value: "A" },
+        { suit: "CLUBS", value: "5" },
+        { suit: "DIAMONDS", value: "A" },
+        { suit: "SPADES", value: "5" },
+        { suit: "HEARTS", value: "3" },
+        { suit: "CLUBS", value: "2" },
+      ];
+      const gameCoordinator = new GameCoordinator(deck);
+
+      // When
+      const result = gameCoordinator.restOfGame();
+
+      // Then
+      expect(result).toBe("dealer");
+    });
+
+    it("stops the turn and passes to dealer's if the player is already at 17 or higher", () => {
+      // Given
+      const deck: Deck = [
+        { suit: "HEARTS", value: "A" },
+        { suit: "CLUBS", value: "6" },
+        { suit: "DIAMONDS", value: "A" },
+        { suit: "SPADES", value: "5" },
+      ];
+      const gameCoordinator = new GameCoordinator(deck);
+
+      // When
+      const result = gameCoordinator.restOfGame();
+
+      // Then
+      expect(result).toBe("dealer");
     });
   });
 });

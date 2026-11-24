@@ -1,4 +1,4 @@
-import type { Deck } from './types';
+import type { Card, Deck } from './types';
 import { Player } from './player';
 
 export class GameCoordinator {
@@ -24,5 +24,14 @@ export class GameCoordinator {
         if (playerHand < 21 && dealerHand > 21) return 'player';
         if (playerHand > 21 && dealerHand < 21) return 'dealer';
         return 'continue';
+    }
+
+    restOfGame() {
+        while (this.player.getHandValue() < 17) {
+            const cardFromDeck: Card | undefined = this.deck.shift();
+            if (!cardFromDeck) throw new Error('No card from deck');
+            this.player.setCardToHand(cardFromDeck);
+        }
+        return 'dealer';
     }
 }
