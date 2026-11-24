@@ -11,11 +11,11 @@ import type { Deck } from '../types';
 describe('GameCoordinator', () => {
     it('finishes the game and makes the dealer winner if both get blackjack', () => {
         // Given
-        const deck: Deck = [{ suit: 'HEARTS', value: 'A' }, { suit: 'CLUBS', value: 'A' }, { suit: 'DIAMONDS', value: 'A' }, { suit: 'SPADES', value: 'A' }];
+        const deck: Deck = [{ suit: 'HEARTS', value: 'A' }, { suit: 'CLUBS', value: 'K' }, { suit: 'DIAMONDS', value: 'A' }, { suit: 'SPADES', value: 'K' }];
         const gameCoordinator = new GameCoordinator(deck);
 
         // When
-        const result =gameCoordinator.startGame();
+        const result = gameCoordinator.startGame();
 
         // Then
         expect(result).toBe('dealer');

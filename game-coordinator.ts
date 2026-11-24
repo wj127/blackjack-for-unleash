@@ -1,18 +1,24 @@
 import type { Deck } from './types';
+import { Player } from './player';
 
 export class GameCoordinator {
     private deck: Deck;
+    private player: Player;
+    private dealer: Player;
 
     constructor(deck: Deck) {
         this.deck = deck;
+        this.player = new Player(this.deck.splice(0, 2), 'player');
+        this.dealer = new Player(this.deck.splice(0, 2), 'dealer');
     }
 
     startGame() {
-        const playerHand = this.deck.slice(0, 2);
-        const dealerHand = this.deck.slice(2, 4);
+        const playerHand = this.player.getHandValue();
+        const dealerHand = this.dealer.getHandValue();
 
-        if (playerHand.every(card => card.value === 'A') && dealerHand.every(card => card.value === 'A')) {
-            return 'dealer';
-        }
+        console.log('playerHand', playerHand, 'dealerHand', dealerHand);
+        
+
+        if (playerHand === 21 && dealerHand === 21) return 'dealer';
     }
 }
