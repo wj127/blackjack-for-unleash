@@ -6,7 +6,7 @@ import type { Deck } from '../types';
   Behaviours to test (so far):
    - When both get blackjack, the dealer wins after the first 2 card draws ✅
    - When the player gets blackjack, the player wins if the dealer does not have blackjack after the first 2 card draws ✅
-   - Edge case: what happens if any have blackjack after the first 2 card draws but either one has a higher value than 21?
+   - Edge case: what happens if any have blackjack after the first 2 card draws but either one has a higher value than 21? ✅
 */
 
 describe('GameCoordinator', () => {
@@ -32,5 +32,17 @@ describe('GameCoordinator', () => {
 
         // Then
         expect(result).toBe('player');
+    });
+
+    it.each(['dealer', 'player'])('finishes the game and makes the %s winner if it has less than 21 but the %s has higher than 21 during the first 2 card draws ', (winner) => {
+        // Given
+        const deck: Deck = winner === 'player' ? [{ suit: 'HEARTS', value: 'A' }, { suit: 'CLUBS', value: '7' }, { suit: 'DIAMONDS', value: 'A' }, { suit: 'SPADES', value: 'A' }] : [{ suit: 'HEARTS', value: 'A' }, { suit: 'CLUBS', value: 'A' }, { suit: 'DIAMONDS', value: 'A' }, { suit: 'SPADES', value: '7' }];
+        const gameCoordinator = new GameCoordinator(deck);
+
+        // When
+        const result = gameCoordinator.startGame();
+
+        // Then
+        expect(result).toBe(winner);
     });
 });
