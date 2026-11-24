@@ -23,5 +23,6 @@ export class GameCoordinator {
         if (playerHand === 21 && dealerHand !== 21) return 'player';
         if (playerHand < 21 && dealerHand > 21) return 'player';
         if (playerHand > 21 && dealerHand < 21) return 'dealer';
+        return 'continue';
     }
 }
