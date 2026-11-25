@@ -27,20 +27,20 @@ export class GameCoordinator {
     }
 
     restOfGame() {
-        while (this.player.getHandValue() < 17) {
-            const cardFromDeck: Card | undefined = this.deck.shift();
-            if (!cardFromDeck) throw new Error('No card from deck');
-            this.player.setCardToHand(cardFromDeck);
-        }
+        this.drawTurn(this.player, 17);
         if (this.player.getHandValue() > 21) return 'dealer';
         if (this.dealer.getHandValue() > this.player.getHandValue()) return 'dealer';
 
-        while (this.dealer.getHandValue() <= this.player.getHandValue()) {
-            const cardFromDeck: Card | undefined = this.deck.shift();
-            if (!cardFromDeck) throw new Error('No card from deck');
-            this.dealer.setCardToHand(cardFromDeck);
-        }
+        this.drawTurn(this.dealer, this.player.getHandValue());
         if (this.dealer.getHandValue() > 21) return 'player';
         return 'dealer';
+    }
+
+    private drawTurn(player: Player, targetToDraw: number) {
+        while (player.getHandValue() < targetToDraw) {
+            const cardFromDeck: Card | undefined = this.deck.shift();
+            if (!cardFromDeck) throw new Error('No card from deck');
+            player.setCardToHand(cardFromDeck);
+        }
     }
 }

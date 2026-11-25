@@ -13,6 +13,7 @@ import type { Deck } from "../types";
    - When the dealer draws higher than the player it wins ✅
    - When the dealer draws over 21 it gets busted and the player wins. ✅
    - Edge case: if the dealer already has a higher value than the player after the first 2 card draws, dealer wins ✅
+   - Edge case: the game finishes if there are no more cards in the deck. ✅
 */
 
 describe("GameCoordinator", () => {
@@ -169,6 +170,20 @@ describe("GameCoordinator", () => {
 
       // Then
       expect(result).toBe("dealer");
+    });
+
+    it("throws an error if there are no more cards in the deck", () => {
+      // Given
+      const deck: Deck = [
+        { suit: "HEARTS", value: "A" },
+        { suit: "CLUBS", value: "6" },
+        { suit: "DIAMONDS", value: "A" },
+        { suit: "SPADES", value: "4" },
+      ];
+      const gameCoordinator = new GameCoordinator(deck);
+
+      // When - Then
+      expect(() => gameCoordinator.restOfGame()).toThrow("No card from deck");
     });
   });
 });
