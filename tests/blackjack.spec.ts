@@ -2,6 +2,8 @@ import { describe, it, expect } from "bun:test";
 import { BlackJack } from "../blackjack";
 import type { Deck } from "../types";
 
+/* Behavioural tests following TDD approach */
+
 describe("GameCoordinator", () => {
   describe("game", () => {
     it("finishes the game and makes the dealer winner if both get blackjack", () => {

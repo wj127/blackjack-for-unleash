@@ -10,5 +10,3 @@ export const DeckSchema = z.array(CardSchema).length(52);
 export type Card = z.infer<typeof CardSchema>;
 
 export type Deck = z.infer<typeof DeckSchema>;
-
-export type PlayerType = 'player' | 'dealer';
