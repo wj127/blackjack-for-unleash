@@ -12,26 +12,30 @@ export class BlackJack {
         this.dealer = new Player(this.deck.splice(0, 2), 'dealer');
     }
 
-    startGame() {
-        const playerHand = this.player.getHandValue();
-        const dealerHand = this.dealer.getHandValue();
+    game() {
+        const result = this.startGame();
+        if (result !== 'continue') return result;
+        return this.restOfGame();
+    }
 
-        console.log('playerHand', playerHand, 'dealerHand', dealerHand);
-        
+    private startGame() {
+        const playerHand = this.player.getHandValue();
+        const dealerHand = this.dealer.getHandValue();        
 
         if (playerHand === 21 && dealerHand === 21) return 'dealer';
         if (playerHand === 21 && dealerHand !== 21) return 'player';
         if (playerHand < 21 && dealerHand > 21) return 'player';
         if (playerHand > 21 && dealerHand < 21) return 'dealer';
+        if (playerHand < 21 && dealerHand === 21) return 'dealer';
         return 'continue';
     }
 
-    restOfGame() {
+    private restOfGame() {
         this.drawTurn(this.player, 17);
         if (this.player.getHandValue() > 21) return 'dealer';
         if (this.dealer.getHandValue() > this.player.getHandValue()) return 'dealer';
 
-        this.drawTurn(this.dealer, this.player.getHandValue());
+        this.drawTurn(this.dealer, this.player.getHandValue() + 1);
         if (this.dealer.getHandValue() > 21) return 'player';
         return 'dealer';
     }
@@ -42,5 +46,13 @@ export class BlackJack {
             if (!cardFromDeck) throw new Error('No card from deck');
             player.setCardToHand(cardFromDeck);
         }
+    }
+
+    getPlayer() {
+        return this.player;
+    }
+
+    getDealer() {
+        return this.dealer;
     }
 }

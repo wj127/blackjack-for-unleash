@@ -14,6 +14,10 @@ export class Player {
         this.hand.push(card);
     }
 
+    getHand() {
+        return this.hand;
+    }
+
     getHandValue() {
         return this.hand.reduce((acc, card) => acc + CARD_VALUE_TO_NUMBER_MAP[card.value], 0);
     }
