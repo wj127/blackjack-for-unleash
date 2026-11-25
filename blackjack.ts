@@ -1,7 +1,7 @@
 import type { Card, Deck } from './types';
 import { Player } from './player';
 
-export class GameCoordinator {
+export class BlackJack {
     private deck: Deck;
     private player: Player;
     private dealer: Player;
