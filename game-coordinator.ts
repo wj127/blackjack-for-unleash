@@ -32,6 +32,15 @@ export class GameCoordinator {
             if (!cardFromDeck) throw new Error('No card from deck');
             this.player.setCardToHand(cardFromDeck);
         }
+        if (this.player.getHandValue() > 21) return 'dealer';
+        if (this.dealer.getHandValue() > this.player.getHandValue()) return 'dealer';
+
+        while (this.dealer.getHandValue() <= this.player.getHandValue()) {
+            const cardFromDeck: Card | undefined = this.deck.shift();
+            if (!cardFromDeck) throw new Error('No card from deck');
+            this.dealer.setCardToHand(cardFromDeck);
+        }
+        if (this.dealer.getHandValue() > 21) return 'player';
         return 'dealer';
     }
 }

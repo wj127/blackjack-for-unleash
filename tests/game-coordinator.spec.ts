@@ -8,11 +8,11 @@ import type { Deck } from "../types";
    - When the player gets blackjack, the player wins if the dealer does not have blackjack after the first 2 card draws ✅
    - Edge case: what happens if any have blackjack after the first 2 card draws but either one has a higher value than 21? ✅
    - If neither have blackjack after the first 2 card draws, the game continues ✅
-   - When the player gets 17 or higher stops and turns to dealer's.
-   - When the player is already at 17 or higher stops and turns to dealer's.
-   - When the player gets above 21 the dealer wins.
-   - When the dealer goes higher than your value stops and turns to player's.
-   - When the dealer gets over 21 the player wins.
+
+   - When the player draws over 21 it gets busted and the dealer wins. ✅
+   - When the dealer draws higher than the player it wins ✅
+   - When the dealer draws over 21 it gets busted and the player wins. ✅
+   - Edge case: if the dealer already has a higher value than the player after the first 2 card draws, dealer wins ✅
 */
 
 describe("GameCoordinator", () => {
@@ -98,14 +98,14 @@ describe("GameCoordinator", () => {
   });
 
   describe("restOfGame", () => {
-    it("stops the turn and passes to dealer's if the player gets 17 or higher", () => {
+    it("finishes the game and makes the dealer winner if the player draws over 21", () => {
       // Given
       const deck: Deck = [
         { suit: "HEARTS", value: "A" },
         { suit: "CLUBS", value: "5" },
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "5" },
-        { suit: "HEARTS", value: "3" },
+        { suit: "HEARTS", value: "6" },
         { suit: "CLUBS", value: "2" },
       ];
       const gameCoordinator = new GameCoordinator(deck);
@@ -117,13 +117,50 @@ describe("GameCoordinator", () => {
       expect(result).toBe("dealer");
     });
 
-    it("stops the turn and passes to dealer's if the player is already at 17 or higher", () => {
+    it("finishes the game if the dealer draws higher than the player and makes it the winner", () => {
       // Given
       const deck: Deck = [
         { suit: "HEARTS", value: "A" },
         { suit: "CLUBS", value: "6" },
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "5" },
+        { suit: "CLUBS", value: "2" },
+      ];
+      const gameCoordinator = new GameCoordinator(deck);
+
+      // When
+      const result = gameCoordinator.restOfGame();
+
+      // Then
+      expect(result).toBe("dealer");
+    });
+
+    it("finishes the game and makes the player winner if the dealer draws over 21", () => {
+      // Given
+      const deck: Deck = [
+        { suit: "HEARTS", value: "A" },
+        { suit: "CLUBS", value: "5" },
+        { suit: "DIAMONDS", value: "A" },
+        { suit: "SPADES", value: "5" },
+        { suit: "HEARTS", value: "2" },
+        { suit: "CLUBS", value: "6" },
+      ];
+      const gameCoordinator = new GameCoordinator(deck);
+
+      // When
+      const result = gameCoordinator.restOfGame();
+
+      // Then
+      expect(result).toBe("player");
+    });
+
+    it("finishes the game and makes the dealer winner if the dealer already has a higher value than the player after the first 2 card draws", () => {
+      // Given
+      const deck: Deck = [
+        { suit: "HEARTS", value: "A" },
+        { suit: "CLUBS", value: "6" },
+        { suit: "DIAMONDS", value: "A" },
+        { suit: "SPADES", value: "8" },
       ];
       const gameCoordinator = new GameCoordinator(deck);
 
