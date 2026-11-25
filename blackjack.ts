@@ -6,10 +6,10 @@ export class BlackJack {
     private player: Player;
     private dealer: Player;
 
-    constructor(deck: Deck) {
+    constructor(deck: Deck, playerName: string = 'Player') {
         this.deck = deck;
-        this.player = new Player(this.deck.splice(0, 2), 'player');
-        this.dealer = new Player(this.deck.splice(0, 2), 'dealer');
+        this.player = new Player(this.deck.splice(0, 2), playerName);
+        this.dealer = new Player(this.deck.splice(0, 2), 'Dealer');
     }
 
     game() {

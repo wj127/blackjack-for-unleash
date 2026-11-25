@@ -1,13 +1,13 @@
-import type { Card, Deck, PlayerType } from './types';
+import type { Card, Deck } from './types';
 import { CARD_VALUE_TO_NUMBER_MAP } from './constants';
 
 export class Player {
     private hand: Deck;
-    private type: PlayerType;
+    private name: string;
     
-    constructor(hand: Deck, type: PlayerType) {
+    constructor(hand: Deck, name: string) {
         this.hand = hand;
-        this.type = type;
+        this.name = name;
     }
 
     setCardToHand(card: Card) {
@@ -20,5 +20,9 @@ export class Player {
 
     getHandValue() {
         return this.hand.reduce((acc, card) => acc + CARD_VALUE_TO_NUMBER_MAP[card.value], 0);
+    }
+
+    getName() {
+        return this.name;
     }
 }

@@ -1,3 +1,5 @@
+import type { Deck } from './types';
+
 export const CARD_VALUE_TO_NUMBER_MAP = {
     '2': 2,
     '3': 3,
@@ -13,3 +15,7 @@ export const CARD_VALUE_TO_NUMBER_MAP = {
     'K': 10,
     'A': 11,
 };
+
+export const formatHand = (hand: Deck) => {
+    return hand.map(card => `${card.suit.at(0)}${card.value}`).join(', ');
+}
