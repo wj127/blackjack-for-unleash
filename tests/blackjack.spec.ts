@@ -67,8 +67,10 @@ describe("GameCoordinator", () => {
                 { suit: "SPADES", value: "7" },
               ];
         const blackjack = new BlackJack(deck);
-        const winnerPlayer = winner === "player" ? blackjack.getPlayer() : blackjack.getDealer();
-        const loserPlayer = winner === "player" ? blackjack.getDealer() : blackjack.getPlayer();
+        const winnerPlayer =
+          winner === "player" ? blackjack.getPlayer() : blackjack.getDealer();
+        const loserPlayer =
+          winner === "player" ? blackjack.getDealer() : blackjack.getPlayer();
 
         // When
         const result = blackjack.game();
@@ -167,7 +169,9 @@ describe("GameCoordinator", () => {
       expect(blackjack.getPlayer().getHand()).toHaveLength(2);
       expect(blackjack.getPlayer().getHandValue()).toBeLessThanOrEqual(21);
       expect(blackjack.getDealer().getHand().length).toBeGreaterThan(2);
-      expect(blackjack.getDealer().getHandValue()).toBeGreaterThanOrEqual(blackjack.getPlayer().getHandValue());
+      expect(blackjack.getDealer().getHandValue()).toBeGreaterThanOrEqual(
+        blackjack.getPlayer().getHandValue(),
+      );
     });
 
     it("finishes the game and makes the player winner if the dealer draws over 21", () => {
@@ -210,7 +214,9 @@ describe("GameCoordinator", () => {
       expect(result).toBe("dealer");
       expect(blackjack.getPlayer().getHand()).toHaveLength(2);
       expect(blackjack.getDealer().getHand()).toHaveLength(2);
-      expect(blackjack.getDealer().getHandValue()).toBeGreaterThan(blackjack.getPlayer().getHandValue());
+      expect(blackjack.getDealer().getHandValue()).toBeGreaterThan(
+        blackjack.getPlayer().getHandValue(),
+      );
     });
 
     it("throws an error if there are no more cards in the deck", () => {
