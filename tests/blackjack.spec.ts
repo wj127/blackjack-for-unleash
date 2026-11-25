@@ -26,10 +26,10 @@ describe("GameCoordinator", () => {
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "K" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.startGame();
+      const result = blackjack.startGame();
 
       // Then
       expect(result).toBe("dealer");
@@ -43,10 +43,10 @@ describe("GameCoordinator", () => {
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "9" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.startGame();
+      const result = blackjack.startGame();
 
       // Then
       expect(result).toBe("player");
@@ -70,10 +70,10 @@ describe("GameCoordinator", () => {
                 { suit: "DIAMONDS", value: "A" },
                 { suit: "SPADES", value: "7" },
               ];
-        const gameCoordinator = new BlackJack(deck);
+        const blackjack = new BlackJack(deck);
 
         // When
-        const result = gameCoordinator.startGame();
+        const result = blackjack.startGame();
 
         // Then
         expect(result).toBe(winner);
@@ -88,10 +88,10 @@ describe("GameCoordinator", () => {
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "5" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.startGame();
+      const result = blackjack.startGame();
 
       // Then
       expect(result).toBe("continue");
@@ -109,10 +109,10 @@ describe("GameCoordinator", () => {
         { suit: "HEARTS", value: "6" },
         { suit: "CLUBS", value: "2" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.restOfGame();
+      const result = blackjack.restOfGame();
 
       // Then
       expect(result).toBe("dealer");
@@ -127,10 +127,10 @@ describe("GameCoordinator", () => {
         { suit: "SPADES", value: "5" },
         { suit: "CLUBS", value: "2" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.restOfGame();
+      const result = blackjack.restOfGame();
 
       // Then
       expect(result).toBe("dealer");
@@ -146,10 +146,10 @@ describe("GameCoordinator", () => {
         { suit: "HEARTS", value: "2" },
         { suit: "CLUBS", value: "6" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.restOfGame();
+      const result = blackjack.restOfGame();
 
       // Then
       expect(result).toBe("player");
@@ -163,10 +163,10 @@ describe("GameCoordinator", () => {
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "8" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When
-      const result = gameCoordinator.restOfGame();
+      const result = blackjack.restOfGame();
 
       // Then
       expect(result).toBe("dealer");
@@ -180,10 +180,10 @@ describe("GameCoordinator", () => {
         { suit: "DIAMONDS", value: "A" },
         { suit: "SPADES", value: "4" },
       ];
-      const gameCoordinator = new BlackJack(deck);
+      const blackjack = new BlackJack(deck);
 
       // When - Then
-      expect(() => gameCoordinator.restOfGame()).toThrow("No card from deck");
+      expect(() => blackjack.restOfGame()).toThrow("No card from deck");
     });
   });
 });
